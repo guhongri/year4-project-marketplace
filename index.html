@@ -34,7 +34,7 @@ nav a.active, nav a:hover { background: white; color: var(--ink); box-shadow: 0 
 .aside-note { margin-top: auto; padding: 16px; border: 1px solid #deded7; background: #fff; border-radius: 10px; }
 .aside-note strong { font-size: 13px; }
 .aside-note p { font-size: 12px; line-height: 1.5; color: var(--muted); }
-.aside-note button, .primary { border: 0; background: var(--ink); color: #fff; padding: 9px 12px; border-radius: 7px; font-size: 12px; font-weight: 600; }
+.aside-note a, .primary { display: inline-flex; align-items: center; justify-content: center; border: 0; background: var(--ink); color: #fff; padding: 9px 12px; border-radius: 7px; font-size: 12px; font-weight: 600; text-decoration: none; }
 aside > small { margin-top: 18px; color: #94958f; font-size: 11px; }
 
 main { min-width: 0; }
@@ -126,6 +126,13 @@ details summary span { color: #9a9b95; font-weight: 400; font-size: 9px; }
 .guide li b { color: var(--blue); font-size: 11px; }
 .guide li strong { font: 400 21px 'DM Serif Display', serif; }
 .guide li span { font-size: 11px; color: var(--muted); line-height: 1.5; }
+.proposal-cta { margin-top: 42px; padding: 30px 32px; border: 1px solid #dce2f6; border-radius: 12px; background: linear-gradient(135deg, #f7f8ff 0%, #fff 72%); display: flex; align-items: end; justify-content: space-between; gap: 32px; }
+.proposal-cta > div { max-width: 730px; }
+.proposal-cta .eyebrow { margin-bottom: 10px; }
+.proposal-cta h3 { margin: 0; font: 400 28px 'DM Serif Display', Georgia, serif; }
+.proposal-cta p:not(.eyebrow) { margin: 10px 0 0; color: var(--muted); font-size: 12px; line-height: 1.65; }
+.proposal-cta > a { flex: 0 0 auto; border-radius: 7px; background: var(--blue); color: #fff; padding: 12px 15px; font-size: 11px; font-weight: 600; text-decoration: none; white-space: nowrap; }
+.proposal-cta > a:hover { background: #2949aa; }
 footer { border-top: 1px solid var(--line); padding: 25px 5vw; display: flex; gap: 16px; align-items: center; font-size: 12px; }
 footer span { color: var(--muted); }
 footer small { margin-left: auto; color: #999; }
@@ -166,6 +173,8 @@ footer small { margin-left: auto; color: #999; }
   .collab a { display: inline-block; margin-top: 12px; }
   .guide { padding: 0 20px 60px; }
   .guide ol { grid-template-columns: 1fr 1fr; }
+  .proposal-cta { padding: 24px; display: block; }
+  .proposal-cta > a { display: inline-flex; margin-top: 18px; white-space: normal; }
   footer { padding: 22px 20px; flex-wrap: wrap; }
   footer small { margin-left: 0; width: 100%; }
 }
@@ -239,11 +248,11 @@ footer small { margin-left: auto; color: #999; }
   <aside>
     <a class="brand" href="#top"><span>Y4</span><b>Project Marketplace</b></a>
     <nav aria-label="Primary navigation"><a class="active" href="#browse">▦ Browse ideas</a><a href="#sources">◇ Idea sources</a><a href="#team-up">◎ Team-up board</a><a href="#guide">? How it works</a></nav>
-    <div class="aside-note"><strong>Have your own direction?</strong><p>Student ideas are welcome—even if they are early or looking for teammates.</p><button type="button">Propose an idea</button></div>
+    <div class="aside-note"><strong>Have your own direction?</strong><p>Frame the problem, users, pain points, and opportunity in a professional project brief.</p><a href="https://docs.google.com/forms/d/e/1FAIpQLSfqDiftsX3virbHS3spdiXdcZu4nbAg9kYPiLU1UZMTwHBbKw/viewform" target="_blank" rel="noreferrer">Propose an idea ↗</a></div>
     <small>ISDN 4001/4002 · 2026/27</small>
   </aside>
   <main id="top">
-    <header><span class="crumb">Year 4 projects&nbsp; / &nbsp;Marketplace</span><div><button class="ghost" type="button">My shortlist <em id="savedCount">0</em></button><button class="primary" type="button">+ Propose an idea</button></div></header>
+    <header><span class="crumb">Year 4 projects&nbsp; / &nbsp;Marketplace</span><div><button class="ghost" type="button">My shortlist <em id="savedCount">0</em></button><a class="primary" href="https://docs.google.com/forms/d/e/1FAIpQLSfqDiftsX3virbHS3spdiXdcZu4nbAg9kYPiLU1UZMTwHBbKw/viewform" target="_blank" rel="noreferrer">+ Propose an idea</a></div></header>
     <section class="hero"><p class="eyebrow">START WITH A PROBLEM WORTH SOLVING</p><h1>Find a project direction.<br><i>Build the right team.</i></h1><p>Explore ideas from faculty, industry, previous cohorts, and fellow students. Compare opportunities, see what earlier teams actually built, and connect around shared interests.</p><label class="search"><span>⌕</span><input id="search" placeholder="Search by topic, skill, technology, or problem…" aria-label="Search project ideas"><kbd>⌘ K</kbd></label></section>
     <section id="sources" class="sources">
       <button data-source="Faculty idea"><span class="source-icon F">F</span><span><strong>Faculty ideas</strong><small>Research-led directions with academic guidance</small></span><b>0</b></button>
@@ -258,7 +267,7 @@ footer small { margin-left: auto; color: #999; }
       <div id="projectList" class="project-list"></div>
     </section>
     <section id="collaborate" class="collab"><div><p class="eyebrow">COLLABORATION BOARD</p><h2>A good project starts with complementary people.</h2><p>See which teams are formed, which students are still considering a direction, and where another skill or collaborator is needed.</p></div><a href="#team-up">View team-up board →</a></section>
-    <section id="guide" class="guide"><h2>From exploration to a team</h2><ol><li><b>01</b><strong>Browse</strong><span>Scan every source in one consistent view.</span></li><li><b>02</b><strong>Understand</strong><span>Open “What they built” for evidence, systems, and links.</span></li><li><b>03</b><strong>Connect</strong><span>Check the shared team list for compatible interests.</span></li><li><b>04</b><strong>Shape</strong><span>Adapt an idea—or propose your own.</span></li></ol></section>
+    <section id="guide" class="guide"><h2>From exploration to a team</h2><ol><li><b>01</b><strong>Browse</strong><span>Scan every source in one consistent view.</span></li><li><b>02</b><strong>Understand</strong><span>Open “What they built” for evidence, systems, and links.</span></li><li><b>03</b><strong>Connect</strong><span>Check the shared team list for compatible interests.</span></li><li><b>04</b><strong>Shape</strong><span>Adapt an idea—or propose your own.</span></li></ol><div class="proposal-cta"><div><p class="eyebrow">STUDENT PROJECT BRIEF</p><h3>Turn a problem insight into a project opportunity.</h3><p>Use the proposal form to define the context, stakeholder personas, pain points, evidence, existing approaches, and intended outcome. Submissions are reviewed before they appear in the marketplace.</p></div><a href="https://docs.google.com/forms/d/e/1FAIpQLSfqDiftsX3virbHS3spdiXdcZu4nbAg9kYPiLU1UZMTwHBbKw/viewform" target="_blank" rel="noreferrer">Open the student proposal form ↗</a></div></section>
     <section id="team-up" class="team-up">
       <div class="team-up-head"><div><p class="eyebrow">STUDENT TEAM-UP BOARD</p><h2>See who is considering, teaming up, or ready.</h2><p>Students edit one shared Google Sheet directly—adding, updating, or removing their own row. The website reads the public-safe list and displays the latest team status here.</p></div><div class="team-actions"><a href="https://docs.google.com/spreadsheets/d/1tK-C3McDDHVGSrCim9f_RfruhJ392Qmo25jq58-JSKE/edit?usp=sharing" target="_blank" rel="noreferrer">Edit the shared Google Sheet ↗</a><small>Student changes appear here automatically within about one minute.</small></div></div>
       <div class="status-guide" aria-label="Suggested team status options"><span><i class="considering"></i><b>Considering</b><small>Interested, but not yet committed</small></span><span><i class="forming"></i><b>Teaming up</b><small>A group has started, but is not final</small></span><span><i class="looking"></i><b>Looking for members</b><small>A partial team needs specific contributions</small></span><span><i class="formed"></i><b>Team formed</b><small>Project direction and team confirmed</small></span></div>
