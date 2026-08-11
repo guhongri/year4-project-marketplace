@@ -248,8 +248,8 @@ footer small { margin-left: auto; color: #999; }
     <section id="sources" class="sources">
       <button data-source="Faculty idea"><span class="source-icon F">F</span><span><strong>Faculty ideas</strong><small>Research-led directions with academic guidance</small></span><b>0</b></button>
       <button data-source="Past project"><span class="source-icon P">P</span><span><strong>Past projects</strong><small>See what previous teams actually built</small></span><b>9</b></button>
-      <button data-source="Industry idea"><span class="source-icon I">I</span><span><strong>Industry ideas</strong><small>Real problems from external partners</small></span><b>6</b></button>
-      <button data-source="Student idea"><span class="source-icon S">S</span><span><strong>Student ideas</strong><small>Early concepts seeking collaborators</small></span><b>4</b></button>
+      <button data-source="Industry idea"><span class="source-icon I">I</span><span><strong>Industry ideas</strong><small>Projects involving external partners</small></span><b>1</b></button>
+      <button data-source="Student idea"><span class="source-icon S">S</span><span><strong>Student ideas</strong><small>Newly proposed ideas seeking collaborators</small></span><b>0</b></button>
     </section>
     <section id="browse" class="browse">
       <div class="section-head"><div><p class="eyebrow">EXPLORE THE MARKETPLACE</p><h2>Project ideas <span id="headingCount">9</span></h2></div><div class="view">☷ <span>List</span></div></div>
@@ -296,7 +296,8 @@ let savedValues=[];try{savedValues=JSON.parse(localStorage.getItem("y4-shortlist
 for(const name of [...new Set(projects.map(p=>p.area))].sort()){const option=document.createElement("option");option.textContent=name;area.appendChild(option)}
 function render(){
   const q=search.value.trim().toLowerCase();
-  const shown=projects.filter(p=>(source.value==="All sources"||p.source===source.value)&&(area.value==="All areas"||p.area===area.value)&&[p.title,p.summary,...p.skills,...p.tools,...p.built.map(x=>x.text)].join(" ").toLowerCase().includes(q));
+  const sourceMatches=p=>source.value==="All sources"||p.source===source.value||(source.value==="Industry idea"&&p.sourceLabel.toLowerCase().includes("industry-linked"));
+  const shown=projects.filter(p=>sourceMatches(p)&&(area.value==="All areas"||p.area===area.value)&&[p.title,p.summary,...p.skills,...p.tools,...p.built.map(x=>x.text)].join(" ").toLowerCase().includes(q));
   headingCount.textContent=shown.length;resultCount.textContent=shown.length+" result"+(shown.length===1?"":"s");savedCount.textContent=saved.size;
   list.innerHTML=shown.length?shown.map((p,i)=>`<article><div class="project-main"><img class="project-image" src="${p.image}" alt="${esc(p.imageAlt)}" style="object-position:${esc(p.imagePosition||"50% 50%")}"><div class="project-copy"><p><span class="dot d${i%4}"></span>${esc(p.sourceLabel)}</p><h3>${esc(p.title)}</h3><p class="summary">${esc(p.summary)}</p><div class="tags">${p.skills.map(x=>`<span>${esc(x)}</span>`).join("")}</div><details><summary>What they built <span>Read the full project summary</span></summary><div class="built-grid">${p.built.map(x=>`<section><h4>${esc(x.label)}</h4><p>${esc(x.text)}</p></section>`).join("")}</div><div class="project-foot"><small><b>Technologies</b>${p.tools.map(esc).join(" · ")}</small><div class="project-links">${p.links.map(x=>`<a href="${esc(x.url)}" target="_blank" rel="noreferrer">${esc(x.label)} ↗</a>`).join("")}</div></div></details></div></div><div class="meta"><strong>${esc(p.area)}</strong></div><div class="meta">${esc(p.format)}</div><button class="save ${saved.has(p.title)?"saved":""}" data-save="${esc(p.title)}" aria-label="Save ${esc(p.title)}">${saved.has(p.title)?"★":"☆"}</button></article>`).join(""):`<div class="empty"><h3>No exact matches</h3><p>Try a broader skill, topic, or source.</p></div>`;
 }
